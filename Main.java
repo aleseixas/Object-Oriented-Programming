@@ -5,5 +5,8 @@ public class Main {
         Sinistro local = new Sinistro("19291012","qualquer lugar");
         Veiculo nivus = new Veiculo("21ja1k","wolksvagem","nivus");
         System.out.println(Cliente.validarCPF(Seixas.getCpf()));   
+        System.out.println(portoseguro.getNome());
+        System.out.println(nivus.getPlaca());
+        System.out.println(local.getEndereco());
     }
 }

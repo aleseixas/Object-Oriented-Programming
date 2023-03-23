@@ -64,7 +64,7 @@ public class Cliente {
     //variáveis
     int contador = 0, resto_divisao = 0 , digito_1 = 0 , digito_2 = 0;
     //retirando letras e deixando só números
-    cpf.replaceAll("[^0-9]", "");
+    cpf = cpf.replaceAll("[^0-9]", "");
     //verificando o tamanho
     if (cpf.length() < 11)
         return false;
@@ -76,8 +76,9 @@ public class Cliente {
     if(contador == 11)
         return false;
     //dígitos verificadores
+    contador = 0;
     for (int j = 0 ; j < 9 ; j++){
-        contador += cpf.charAt(j) * (10- j);
+        contador += ((int)cpf.charAt(j) - 48) * (10- j);
     }
     resto_divisao = contador % 11;
     if (resto_divisao < 2){
@@ -86,12 +87,13 @@ public class Cliente {
     else{
         digito_1 = 11 - resto_divisao;
     }
-    if (digito_1 == cpf.charAt(9)){
+    if (digito_1 != ((int)cpf.charAt(9) - 48)){
         return false;
     }
     //verificando o dígito 2
+    contador = 0;
     for (int j = 0 ; j < 10 ; j++){
-        contador += cpf.charAt(j) * (11- j);
+        contador += ((int)cpf.charAt(j) - 48) * (11- j);
     }
     resto_divisao = contador % 11;
     if (resto_divisao < 2){
@@ -100,7 +102,7 @@ public class Cliente {
     else{
         digito_2 = 11 - resto_divisao;
     }
-    if (digito_2 == cpf.charAt(9)){
+    if (digito_2 != ((int)cpf.charAt(10) - 48)){
         return false;
     }
     //passou por todos procecessos
