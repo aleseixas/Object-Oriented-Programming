@@ -17,7 +17,7 @@ public class Main {
             System.out.println("4-ENDEREÇO DA AGÊNCIA MAIS PRÓXIMA");
             System.out.println("5-PARA ENCERRAR ESSA SESSÃO");
             valor = scan.nextInt();
-            if (valor == 1){
+            if (valor == MenuOperacoes.CADASTRAR.getOperacao()){
                 //variaveis
                 String educacao , genero, classeEconomica , cpf;
                 Calendar hoje = Calendar.getInstance() , datanascimento = Calendar.getInstance();
@@ -157,7 +157,7 @@ public class Main {
         //cadastrar e remover cliente
         System.out.println(Seguradora.cadastrarCliente(cliente3, Seixas.getlistaClientes())+"\n");
         System.out.println(Seixas.getlistaClientes()+"\n");
-        System.out.println(Seguradora.removeCliente(cliente3.getNome(), Seixas.getlistaClientes())+"\n");
+        System.out.println(Seguradora.removeCliente(cliente3.getNome(), Seixas.getlistaClientes(),Seixas.getlistaSinistros())+"\n");
         System.out.println(Seixas.getlistaClientes()+"\n");
 
         //cadastrando pelo menos 2 clientes

@@ -83,14 +83,26 @@ public class Seguradora {
         }
     }
 
-    public static boolean removeCliente(String cliente , ArrayList<Cliente> lista){
+    public static boolean removeCliente(String cliente , ArrayList<Cliente> lista , ArrayList<Sinistro> sinistros){
+        int contador = 0;
         for(int k = 0 ; k < lista.size() ; k++){
             if(lista.get(k).getNome() == cliente){
                 lista.remove(k);
-                return true;
+                contador = 1;
             }
         }
-        return false;
+        for (int k = 0 ; k < sinistros.size() ; k++){
+            if(sinistros.get(k).getCliente().getNome() == cliente){
+                sinistros.remove(k);
+            }
+            
+        }
+        if( contador == 1 ){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public static boolean gerarSinistro(String data , String endereco , Seguradora seguradora , Veiculo veiculo, Cliente cliente){

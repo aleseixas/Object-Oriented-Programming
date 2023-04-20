@@ -11,6 +11,9 @@ public class Cliente {
         this.listaVeiculos = listaVeiculos;
     }
 
+    public Cliente(String string, String string2, int i, String string3, String string4) {
+    }
+
     //getters e setters
     public String getNome(){
         return nome;
@@ -45,6 +48,10 @@ public class Cliente {
         //String nome, String educacao, Date dataLicenca, String genero, String endereco, String classeEconomica,List<Veiculo> listaVeiculos
         String valor = "\nNOME:" + nome +  "\nENDEREÇO:" + endereco + "\nLISTA VEÍCULOS:" + listaVeiculos;
         return valor;
+    }
+
+    public Object getCpf() {
+        return null;
     }
 
 }
