@@ -4,17 +4,23 @@ public class Cliente {
     private String nome;
     private String endereco;
     private ArrayList<Veiculo> listaVeiculos;
+    private double valorSeguro;
     //construtor 
     public Cliente(String nome, String endereco, ArrayList<Veiculo> listaVeiculos){
         this.nome = nome;
         this.endereco = endereco;
         this.listaVeiculos = listaVeiculos;
     }
-
-    public Cliente(String string, String string2, int i, String string3, String string4) {
+    
+    //getters e setters
+    public double getValorSeguro(){
+        return valorSeguro;
     }
 
-    //getters e setters
+    public void setValorSeguro(double valorSeguro){
+        this.valorSeguro = valorSeguro;
+    }
+
     public String getNome(){
         return nome;
     }
@@ -50,8 +56,7 @@ public class Cliente {
         return valor;
     }
 
-    public Object getCpf() {
-        return null;
+    public double calculaScore(){
+        return 0;
     }
-
 }

@@ -9,7 +9,7 @@ public class ClientePF extends Cliente {
     private Calendar dataLicenca;
     private String classeEconomica;
 
-    public ClientePF(String nome, String educacao, Calendar dataLicenca, String genero, String endereco, String classeEconomica,ArrayList<Veiculo> listaVeiculos , String cpf , Calendar dataNascimento){
+    public ClientePF(String nome, String educacao, Calendar dataLicenca, String genero, String endereco, String classeEconomica,ArrayList<Veiculo> listaVeiculos ,String cpf , Calendar dataNascimento){
         super(nome,endereco,listaVeiculos);
         this.educacao = educacao;
         this.dataLicenca = dataLicenca;
@@ -71,53 +71,24 @@ public class ClientePF extends Cliente {
         return valor;
     }
 
-    public static boolean validarCPF(String cpf){
-        //variáveis
-        int contador = 0, resto_divisao = 0 , digito_1 = 0 , digito_2 = 0;
-        //retirando letras e deixando só números
-        cpf = cpf.replaceAll("[^0-9]", "");
-        //verificando o tamanho
-        if (cpf.length() < 11)
-            return false;
-        //conferindo se todos os dígitos são iguais
-        for (int k = 0 ; k < 11 ; k++){
-            if(cpf.charAt(k) == cpf.charAt(0))
-                contador++;
+    public double calculaScore(){
+        Calendar hoje = Calendar.getInstance();      
+        long diferenca = hoje.getTimeInMillis() - dataNascimento.getTimeInMillis();
+        //convertendo os milissegundos em anos, OBS:365.25 ocorre pensando nos anos bissextos
+        int idade = (int) (diferenca/1000 *  36000 * 24 * 365.25);
+        //as condições da idade visam no maior valor
+        if ( idade <= 30 && idade >= 18 ){
+            return CalcSeguro.VALOR_BASE.getFator() * CalcSeguro.FATOR_18_30.getFator() * getlistaVeiculos().size();
         }
-        if(contador == 11)
-            return false;
-        //dígitos verificadores
-        contador = 0;
-        for (int j = 0 ; j < 9 ; j++){
-            contador += ((int)cpf.charAt(j) - 48) * (10- j);
+        else if ( idade > 30 && idade < 60 ){
+            return CalcSeguro.VALOR_BASE.getFator() * CalcSeguro.FATOR_30_60.getFator() * getlistaVeiculos().size();
         }
-        resto_divisao = contador % 11;
-        if (resto_divisao < 2){
-            digito_1 = 0;
+        else if ( idade >= 60 ){
+            return CalcSeguro.VALOR_BASE.getFator() * CalcSeguro.FATOR_60_90.getFator() * getlistaVeiculos().size();
         }
-        else{
-            digito_1 = 11 - resto_divisao;
-        }
-        if (digito_1 != ((int)cpf.charAt(9) - 48)){
-            return false;
-        }
-        //verificando o dígito 2
-        contador = 0;
-        for (int j = 0 ; j < 10 ; j++){
-            contador += ((int)cpf.charAt(j) - 48) * (11- j);
-        }
-        resto_divisao = contador % 11;
-        if (resto_divisao < 2){
-            digito_2 = 0;
-        }
-        else{
-            digito_2 = 11 - resto_divisao;
-        }
-        if (digito_2 != ((int)cpf.charAt(13) - 48)){
-            return false;
-        }
-        //passou por todos procecessos
-        return true;
-        }
+        //menores de 18 retorna 0 , já que não podem ter seguro
+        return 0;
+
+    }
 
 }
