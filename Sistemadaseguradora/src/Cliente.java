@@ -1,24 +1,23 @@
-import java.util.ArrayList;
-
-public class Cliente {
+abstract class Cliente {
     private String nome;
     private String endereco;
-    private ArrayList<Veiculo> listaVeiculos;
-    private double valorSeguro;
+    private String telefone;
+    private String email;
     //construtor 
-    public Cliente(String nome, String endereco, ArrayList<Veiculo> listaVeiculos){
+    public Cliente(String nome, String endereco,String email , String telefone ){
         this.nome = nome;
         this.endereco = endereco;
-        this.listaVeiculos = listaVeiculos;
+        this.telefone = telefone;
+        this.email = email;
     }
     
     //getters e setters
-    public double getValorSeguro(){
-        return valorSeguro;
+    public String getEmail(){
+        return email;
     }
 
-    public void setValorSeguro(double valorSeguro){
-        this.valorSeguro = valorSeguro;
+    public void setEmail(String email){
+        this.email = email;
     }
 
     public String getNome(){
@@ -40,19 +39,19 @@ public class Cliente {
 
 
 
-    public ArrayList<Veiculo> getlistaVeiculos(){
-        return listaVeiculos;
+    public String getTelefone(){
+        return telefone;
     }
 
-    public void setlistaVeiculos(ArrayList<Veiculo> listaVeiculos){
-        this.listaVeiculos = listaVeiculos;
+    public void setTelefone(String telefone){
+        this.telefone = telefone;
     }
     
     //funções 
     @Override
     public String toString(){
         //String nome, String educacao, Date dataLicenca, String genero, String endereco, String classeEconomica,List<Veiculo> listaVeiculos
-        String valor = "\nNOME:" + nome +  "\nENDEREÇO:" + endereco + "\nLISTA VEÍCULOS:" + listaVeiculos;
+        String valor = "\nNOME:" + nome +  "\nENDEREÇO:" + endereco + "\nTELEFONE:" + telefone + "\nEMAIL" + email;
         return valor;
     }
 

@@ -6,28 +6,18 @@ public class ClientePF extends Cliente {
     private String genero;
     private Calendar dataNascimento ;
     private String educacao;
-    private Calendar dataLicenca;
-    private String classeEconomica;
+    private ArrayList<Veiculo> listaVeiculos;
 
-    public ClientePF(String nome, String educacao, Calendar dataLicenca, String genero, String endereco, String classeEconomica,ArrayList<Veiculo> listaVeiculos ,String cpf , Calendar dataNascimento){
-        super(nome,endereco,listaVeiculos);
+    public ClientePF(String nome, String email,String telefone, String genero, String endereco, String educacao,String cpf , Calendar dataNascimento){
+        super(nome,endereco,telefone,email);
         this.educacao = educacao;
-        this.dataLicenca = dataLicenca;
-        this.classeEconomica = classeEconomica;
         this.genero = genero;
         this.cpf = cpf ;
         this.dataNascimento = dataNascimento;    
+        listaVeiculos = new ArrayList<>();;
     }
 
     //gets e sets
-    public Calendar getdataLicenca(){
-        return dataLicenca;
-    }
-
-    public void setdataLicenca(Calendar dataLicenca){
-        this.dataLicenca = dataLicenca;
-    }
-
     public String getEducacao(){
         return educacao;
     }
@@ -44,12 +34,12 @@ public class ClientePF extends Cliente {
         this.genero = genero;
     }
 
-    public String getclasseEconomica(){
-        return classeEconomica;
+    public ArrayList<Veiculo> getlistaVeiculos(){
+        return listaVeiculos;
     }
 
-    public void setclasseEconomica(String classeEconomica){
-        this.classeEconomica = classeEconomica;
+    public void setlistaVeiculos(ArrayList<Veiculo> listaVeiculos){
+        this.listaVeiculos = listaVeiculos;
     }
 
     public String getCPF(){
@@ -67,28 +57,28 @@ public class ClientePF extends Cliente {
     //funções
     @Override
     public String toString(){
-        String valor = "\nNOME:" + getNome() +  "\nENDEREÇO:" + getEndereco() + "\nEDUCAÇÃO:" + educacao + "\nDATA LICENÇA:" + dataLicenca + "\nGÊNERO:" + genero + "\nCLASSE ECONOMICA:" + classeEconomica + "\nLISTA VEÍCULOS:" + getlistaVeiculos() + "\nCPF:"+ cpf +"\nDATA NASCIMENTO"+ dataNascimento;
+        String valor = super.toString() + "\nEDUCAÇÃO:" + educacao + "\nGÊNERO:" + genero + "\nLISTA VEÍCULOS:" + listaVeiculos.toString() + "\nCPF:"+ cpf +"\nDATA NASCIMENTO"+ dataNascimento;
         return valor;
     }
 
-    public double calculaScore(){
-        Calendar hoje = Calendar.getInstance();      
-        long diferenca = hoje.getTimeInMillis() - dataNascimento.getTimeInMillis();
-        //convertendo os milissegundos em anos, OBS:365.25 ocorre pensando nos anos bissextos
-        int idade = (int) (diferenca/1000 *  36000 * 24 * 365.25);
-        //as condições da idade visam no maior valor
-        if ( idade <= 30 && idade >= 18 ){
-            return CalcSeguro.VALOR_BASE.getFator() * CalcSeguro.FATOR_18_30.getFator() * getlistaVeiculos().size();
-        }
-        else if ( idade > 30 && idade < 60 ){
-            return CalcSeguro.VALOR_BASE.getFator() * CalcSeguro.FATOR_30_60.getFator() * getlistaVeiculos().size();
-        }
-        else if ( idade >= 60 ){
-            return CalcSeguro.VALOR_BASE.getFator() * CalcSeguro.FATOR_60_90.getFator() * getlistaVeiculos().size();
-        }
-        //menores de 18 retorna 0 , já que não podem ter seguro
-        return 0;
-
+    public boolean cadastrarVeiculo(Veiculo v){
+        listaVeiculos.add(v);
+        return true;
     }
+
+    public boolean removerVeiculo(Veiculo v){
+        listaVeiculos.remove(v);
+        return true;
+    }
+    
+    public boolean listarCarro(){
+        boolean entrou = false;
+        for(Veiculo carro : listaVeiculos){
+            System.out.println(carro);
+            entrou = true;
+        }
+        return entrou;
+    }
+
 
 }

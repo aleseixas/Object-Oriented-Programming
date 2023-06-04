@@ -1,12 +1,12 @@
 import java.util.Random;
+import java.util.Calendar;
 
 public class Sinistro {
     private final int id;
-    private String data;
+    private Calendar data;
     private String endereco;
-    private Seguradora seguradora;
-    private Veiculo veiculo;
-    private Cliente cliente;
+    private Condutor condutor;
+    private Seguro seguro;
 
     public int randomId(){
         Random random = new Random();
@@ -14,13 +14,12 @@ public class Sinistro {
         return numero;
     }
 
-    public Sinistro(String data, String endereco , Seguradora seguradora , Veiculo veiculo, Cliente cliente){
+    public Sinistro(Calendar data, String endereco , Seguro seguro , Condutor condutor){
         this.id = randomId();
         this.endereco = endereco;
         this.data = data;
-        this.seguradora = seguradora;
-        this.cliente = cliente;
-        this.veiculo = veiculo;
+        this.condutor = condutor;
+        this.seguro = seguro;
     }
 
     //set e get
@@ -36,43 +35,36 @@ public class Sinistro {
         this.endereco = endereco;
     }
 
-    public Cliente getCliente(){
-        return cliente;
+    public Seguro getSeguro(){
+        return seguro;
     }
 
-    public void setCliente(Cliente cliente){
-        this.cliente = cliente;
+    public void setSeguro(Seguro seguro){
+        this.seguro = seguro;
     }
 
-    public Seguradora getSeguradora(){
-        return seguradora;
+    public Condutor getCondutor(){
+        return condutor;
     }
 
-    public void setSeguradorqa(Seguradora seguradora){
-        this.seguradora = seguradora;
-    }
-
-    public Veiculo getVeiculo(){
-        return veiculo;
-    }
-
-    public void setVeiculo(Veiculo veiculo){
-        this.veiculo = veiculo;
+    public void setCondutor(Condutor condutor){
+        this.condutor = condutor;
     }
 
 
-    public void setData(String data){
+    public void setData(Calendar data){
         this.data = data;
     }
 
-    public String getData(){
+    public Calendar getData(){
         return data;
     }
 
     //funções
     @Override
     public String toString(){
-        String valor = "\nID:" + id +  "\nENDEREÇO:" + endereco + "\nDATA:" + data +"\nCLIENTE:"+ cliente + "\nSEGURADORA:" + seguradora + "\nVEICULO:" + veiculo;
+        String valor = "\nID:" + id +  "\nENDEREÇO:" + endereco + "\nDATA:" + data +"\nCONDUTOR:"+ condutor.getNome() + "\nSEGURO:" + seguro.getID();
         return valor;
     }
+    
 }
