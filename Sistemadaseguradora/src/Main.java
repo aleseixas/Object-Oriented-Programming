@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Main {
 
-    public static void coletardados(ArrayList<Seguradora> s){
+    public static void coletardados(ArrayList<Seguradora> s) throws Exception{
         Scanner scan = new Scanner(System.in);
         System.out.println("SEJA BEM VINDO A 'SEIXAS SEGUROS'!, DIGITE ALGUM NÚMERO PARA:");
         int valor;
@@ -16,6 +16,7 @@ public class Main {
             System.out.println("4 - GERAR SINISTRO");
             System.out.println("5 - GERAR SEGURO");
             System.out.println("6 - CALCULAR RECEITA DA SEGURADORA");
+            System.out.println("7 - REGISTRAR TODOS OS DADOS GERADO(GERAR ARQUIVO)");
             System.out.println("0 - SAIR");
             valor = Integer.parseInt(scan.nextLine());
             if (valor == MenuOperacoes.CADASTRAR.getOperacao()){
@@ -570,17 +571,39 @@ public class Main {
                 System.out.println("A RECEITA DA SEGURADORA É : " + Seguradora.calcularReceita(cnpj, s));
             } 
 
+            else if (valor == MenuOperacoes.GERARARQUIVO.getOperacao()){
+                System.out.println("QUAL É A CNPJ DA SEGURADORA VOCÊ QUER GERAR O SEU ARQUIVO?:");
+                String cnpj = scan.nextLine();
+                Seguradora seguradora = null;
+
+				for(int k = 0 ;  k < s.size() ; k++) {
+					if(s.get(k).getCNPJ().equals(cnpj)) {
+						seguradora = s.get(k);
+					}
+				}
+
+				seguradora.gravarDados("SEGUROS");
+				seguradora.gravarDados("SINISTROS");
+				System.out.println("DESEJA LER OS ARQUIVOS GRAVADOS? \n1-SIM  \n2-NÃO");
+				valor = Integer.parseInt(scan.nextLine()); ;
+				if(valor == 1) {
+					seguradora.lerDados("SEGUROS");
+					System.out.println("---------------");
+					seguradora.lerDados("SINISTROS");
+				}
+
+            }
+
             else if (valor == MenuOperacoes.SAIR.getOperacao()){
                 System.out.println("ESPERAMOS QUE TENHAMOS RESOLVIDO SEU PROBLEMA,ATÉ A PRÓXIMA!");
                 scan.close();
                 break;
             }
         }
-        
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args)throws Exception{
         //CRIANDO AS LISTAS 
         ArrayList <Seguradora> lista = new ArrayList<>();
         //datas
@@ -609,6 +632,11 @@ public class Main {
         Sinistro sinistro2 = new Sinistro(dataSinistro, "Rua B, 456", seguropf, c);
         Sinistro sinistro3 = new Sinistro(dataSinistro, "Rua C, 789", seguropf, c);
         Frota f = new Frota("woqwnqeq");
+        s1.getListaseguro().add( seguroPJ);
+        s1.getListaseguro().add(seguropf);
+        s1.getListaseguro().get(0).getListaSinistro().add(sinistro3);
+        s1.getListaseguro().get(0).getListaSinistro().add(sinistro2);
+        s1.getListaseguro().get(0).getListaSinistro().add(sinistro1);
         SeguroPJ seguropj = new SeguroPJ(dataFim, dataInicio, s2, 0, f, cp);
         //adicionando itens
         lista.add(s2);
@@ -674,6 +702,18 @@ public class Main {
         c.adicionarSinistro(sinistro2);
         c.adicionarSinistro(sinistro3);
         c.adicionarSinistro(sinistro4);
+        //ler dados
+        System.out.println("------------------------------------");
+        System.out.println(s1.getArquivoClientePF().lerArquivo());
+        System.out.println("------------------------------------");
+        System.out.println(s1.getArquivoClientePJ().lerArquivo());
+        System.out.println("------------------------------------");
+        System.out.println(s1.getArquivoCondutor().lerArquivo());
+        System.out.println("------------------------------------");
+        System.out.println(s1.getArquivoVeiculo().lerArquivo());
+        System.out.println("------------------------------------");
+        System.out.println(s1.getArquivoFrota().lerArquivo());
+        System.out.println("------------------------------------");
         //coletando dados
         coletardados(lista);
         }

@@ -5,6 +5,7 @@ public enum MenuOperacoes {
     GERARSINISTRO(4) ,
     GERARSEGURO(5) ,
     CALCULARRECEITASEGURADORA(6) ,
+    GERARARQUIVO(7),
     SAIR (0),
     CADASTRAPFPJ(1),
     CADASTRAVEICULO(2),
